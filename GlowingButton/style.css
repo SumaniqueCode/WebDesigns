@@ -1,0 +1,103 @@
+   /* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Background */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #121212;
+  font-family: Arial, sans-serif;
+}
+
+/* Toggle Container */
+.toggle-container {
+  position: relative;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  width: 170px; 
+  height: 80px; 
+  border-radius: 50px;
+  cursor: pointer;
+  background: linear-gradient(145deg, #1a1a1a, #2b2b2b);
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.1), /* Inner shadow */
+              inset 5px 5px 15px rgba(0, 0, 0, 0.6);  /* Inner shadow for 3D effect */
+  transition: all 0.5s ease; /* for smooth transition of glow and button */
+  padding: 4px 10px;
+  border: 4px solid transparent; /* Transparent border */
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4), 
+              inset 0 0 10px rgba(0, 0, 0, 0.6); /* 3D inset effect */
+}
+
+/* Knob (Internal Button) */
+.toggle-knob {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(145deg, #1a1a1a, #2b2b2b);
+  border-radius: 50%;
+  box-shadow: inset -3px -3px 6px rgba(255, 255, 255, 0.2),
+              inset 3px 3px 6px rgba(0, 0, 0, 0.4);
+  transition: all 0.5s ease; /* Smooth transition of internal button */
+  border: 3px solid rgba(255, 0, 0, 0.5); /* Red glow when OFF */
+}
+
+/* Knob ON State */
+.toggle-switch.on .toggle-knob {
+  left: 90px;
+  border: 3px solid rgba(0, 255, 0, 0.5); /* Green glow */
+  box-shadow: inset -3px -3px 6px rgba(255, 255, 255, 0.2),
+              inset 3px 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Keyframes for Glowing Effect (Moving Animation) */
+@keyframes border-glow-on {
+  0% {
+    border-color: rgba(255, 0, 0, 0.5); /* Red at the start */
+    box-shadow: -10px 0 10px rgba(0, 255, 0, 0.5); /* Start from left */
+  }
+  100% {
+    border-color: rgba(0, 255, 0, 0.5); /* Change to green */
+    box-shadow: 10px 0 10px rgba(0, 255, 0, 0.5);  /* Move to right */
+  }
+}
+
+
+/* Outer Border Glow and Animation when ON */
+.toggle-switch.on {
+  animation: border-glow-on 0.5s linear forwards; /* Glow animation ON */
+  border-color: rgba(0, 255, 0, 0.5); /* Green Glow */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6), /* 3D inset effect */
+              0 0 20px rgba(0, 255, 0, 0.7); /* Green glow on the border */
+}
+
+/* Outer Border Glow Off Animation (Move from Right to Left) */
+@keyframes border-glow-off {
+  0% {
+    border-color: rgba(0, 255, 0, 0.5); /* Green at the start */
+    box-shadow: 10px 0 10px rgba(0, 255, 0, 0.5); /* Start from right */
+  }
+  100% {
+    border-color: rgba(255, 0, 0, 0.5); /* Change to red */
+    box-shadow: -10px 0 10px rgba(255, 0, 0, 0.5); /* Move to left */
+  }
+}
+
+/* When Off, Apply the Border Glow Off Animation */
+.toggle-switch:not(.on) {
+  animation: border-glow-off 0.5s linear forwards; /* Glow animation OFF */
+  border-color: rgba(255, 0, 0, 0.5); /* Red border when OFF */
+  box-shadow: 0 0 0 rgba(0, 255, 0, 0); /* Remove the glow */
+}
